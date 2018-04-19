@@ -41,8 +41,8 @@ def input(request):
             request.session.modified = True
             messages.success(request, "Thank you for entering")
 
-
-            return HttpResponseRedirect(reverse('results', kwargs={'id': user.id}))
+            return HttpResponseRedirect(reverse('results'))
+            # return HttpResponseRedirect(reverse('results', kwargs={'id': user.id}))
 
         messages.error(request, 'There were errors. Please try again.')
     else:
