@@ -53,10 +53,13 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# simple cached data
+# session settings
+
 # SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
 # SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
+SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
+
 
 ROOT_URLCONF = 'njcdc.urls'
 
