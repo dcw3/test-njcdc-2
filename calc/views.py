@@ -35,7 +35,7 @@ def input(request):
             user = input_form.save()
 
 
-            FOR SESSIONS, UNCOMMENT THE BELOW
+            # FOR SESSIONS, UNCOMMENT THE BELOW
             user = input_form.save(commit=False)
             request.session["user"] = user
             request.session.modified = True
