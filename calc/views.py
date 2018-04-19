@@ -35,10 +35,10 @@ def input(request):
             user = input_form.save()
 
 
-            # FOR SESSIONS, UNCOMMENT THE BELOW
-            # user = input_form.save(commit=False)
-            # request.session["user"] = user
-            # request.session.modified = True
+            FOR SESSIONS, UNCOMMENT THE BELOW
+            user = input_form.save(commit=False)
+            request.session["user"] = user
+            request.session.modified = True
             messages.success(request, "Thank you for entering")
 
 
@@ -79,11 +79,11 @@ def load_gasoline_units(request):
     return HttpResponse(template.render(context, request))
 
 
-# def results(request):
-#     up = request.session["user"]
+def results(request):
+    up = request.session["user"]
 
-def results(request, id):
-    up = UserProfile.objects.get(id=id)
+# def results(request, id):
+#     up = UserProfile.objects.get(id=id)
 
     up.calculate_net()
 
