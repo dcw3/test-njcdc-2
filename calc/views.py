@@ -81,20 +81,27 @@ def load_gasoline_units(request):
 
 def results(request):
     up = request.session["user"]
-
-# def results(request, id):
-#     up = UserProfile.objects.get(id=id)
-
+    
     up.calculate_net()
 
     template = loader.get_template('calc/results.html')
     context = {'up' : up}
 
-    returner = HttpResponse(template.render(context, request))
+    return HttpResponse(template.render(context, request))
 
-    UserProfile.objects.filter(id=id).delete()
+# def results(request, id):
+#     up = UserProfile.objects.get(id=id)
 
-    return returner
+#     up.calculate_net()
+
+#     template = loader.get_template('calc/results.html')
+#     context = {'up' : up}
+
+#     returner = HttpResponse(template.render(context, request))
+
+#     UserProfile.objects.filter(id=id).delete()
+
+#     return returner
 
 
     
