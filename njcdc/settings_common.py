@@ -58,7 +58,9 @@ MIDDLEWARE = [
 # SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
 # SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
+
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
+RESTRICTEDSESSIONS_AUTHED_ONLY = True
 
 
 ROOT_URLCONF = 'njcdc.urls'
