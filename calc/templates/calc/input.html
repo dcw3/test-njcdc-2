@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+
+<!-- Set the page to the width of the device and set the zoon level -->
+<meta name="viewport" content="width = device-width, initial-scale = 1">
+<title>Carbon Dividend Calculator</title>
+
+
+
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Carbon Dividend Calculator</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  {% load static %}
+</head>
+<body>
+    <!-- navbar-light bg-light -->
+    <!-- <div class="d-flex justify-content-between hidden-lg-up"> -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" id="navbar_header">
+      <div>
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/calc/" id="navbar-title">Carbon Dividend Calculator</a>
+        </div>
+
+        <!-- this div hides the items from the navigation bar for smaller screens -->
+          <div id="navbar" class="collapse navbar-collapse">
+            <!-- navbar-right -->
+              <ul class="nav navbar-nav">
+                  <li>
+                    <a href="/calc/">Home</a>
+                  </li>
+                  <li class="active">
+                    <a href="/calc/input">Calculator</a>
+                  </li>
+                  <li>
+                    <a href="/calc/about">About</a>
+                  </li>
+              </ul>
+          </div>
+      </div>
+  </nav>
+
+<header class="bg-primary text-white">
+    <div class="container text-center">
+        <h1>Carbon Dividend Calculator</h1>
+        <p class="lead">Carbon fee and dividend puts a price on carbon and returns the money to households and businesses</p>
+    </div>
+</header>
+
+<style>
+.container {
+  margin-top: 50px;
+}
+.left {
+      float: left;
+}
+.right {
+       float:right;
+}   
+.center {
+       float:center;
+}   
+</style>
+<div>
+{% block 'content1' %}
+{{ input_form.non_field_errors }}
+<form action="" method = "post" id="userProfile" load-gasoline-units-url="{% url 'ajax_load_gasoline_units' %}" novalidate>
+    {% csrf_token %}
+    <div class="container col-sm-0 col-md-4 col-lg-4"></div>
+    <div class="container">
+        <div class="col-sm-4 col-md-4 col-lg-4">
+                <div id="basic_info_panel">
+                    <div>
+                        <label class="text-center">How many adults (age 18+) live in your home?</label>
+                        <div class="text-center">{{ input_form.adults }}
+                            <a href="#" data-toggle="tooltip" data-placement="top" title="The number of adults helps us determine the default values of your carbon emissions, based on other families of a similar size"><img src="{% static "calc/question.png" %}" width="15" height="15"></a>
+                        </div>
+                    </div>
+                    <br/>
+                    <div>
+                        <label>How many children live in your home?</label>
+                        <div class="text-center">{{ input_form.children }}
+                            <a href="#" data-toggle="tooltip" data-placement="top" title="The number of children helps us determine the default values of your carbon emissions, based on other families of a similar size"><img src="{% static "calc/question.png" %}" width="15" height="15"></a>
+                        </div>
+                    </div> 
+                    <!--<br/>-->
+                    <!--<div class="form-fee ">-->
+                        <!--<label for="fee">Choose a carbon fee</label>-->
+                        <!--<div class="text-center">{{ input_form.fee }}-->
+                            <!--<a href="#" data-toggle="tooltip" data-placement="top" title="The carbon fee is the price paid in taxes for each metric ton of CO2."><img src="{% static "calc/question.png" %}" width="15" height="15"></a>-->
+                        <!--</div>-->
+                    <!--</div> -->
+                    <!--<br/>-->
+                    <!--<div>-->
+                    <!--<label for="rebate">Choose a rebate portion</label>-->
+                        <!--<div class="text-center">{{ input_form.rebate_portion }}-->
+                        <!--<a href="#" data-toggle="tooltip" data-placement="top" title="The rebate is the portion of the tax that would be returned back-->
+                        <!--to households in the form of a check in the mail. -->
+                        <!--The rest of the money would be invested in local businesses."><img src="{% static "calc/question.png" %}" width="15" height="15"></a></div>-->
+                    <!--</div> -->
+
+                </div>
+
+                    </div> 
+
+        </div>
+    </div>
+    <div class="container col-sm-0 col-md-4 col-lg-4"></div>
+
+    <div class="container"></div>
+    <div class="container">
+        <div class="col-sm-12 col-md-4 col-lg-4">
+            <div>
+                <h1>Gasoline Usage</h1>
+                </br>
+                <div>
+                    <label>What type of gasoline do you normally use?</label>
+                    <div class="text-center">{{ input_form.gasoline_type }}
+                        <a href="#" data-toggle="tooltip" data-placement="top" title="Different gasoline types produce different amounts of carbon emissions when burned."><img src="{% static "calc/question.png" %}" width="15" height="15"></a>
+                    </div>
+                </div> 
+                <br/>
+                <div>
+                    <label>How much gasoline do you use in a month?</label>
+                    <div class="text-center">{{ input_form.gasoline_amt }}{{ input_form.gasoline_unit }}
+                        <a href="#" data-toggle="tooltip" data-placement="top" title="This will help us estimate your carbon emissions."><img src="{% static "calc/question.png" %}" width="15" height="15"></a>
+                    </div>
+                </div> 
+
+            </div>
+        </div>
+        <br class="hidden-md hidden-lg">
+        <div class="col-sm-12 col-md-4 col-lg-4">
+            <div id="heat_panel">
+<!--                 <div class="form-heat-type">Please tell us about your heat usage</div> -->
+               <h1>Heating</h1>
+           </br>
+                <div >
+                    <label>What do you use to heat your house?</label>
+                    <div class="text-center">{{ input_form.heating_type }}
+                        <a href="#" data-toggle="tooltip" data-placement="top" title="This will help us estimate your carbon emissions."><img src="{% static "calc/question.png" %}" width="15" height="15"></a>
+                    </div>
+                </div> 
+                </br>
+                <div>
+                    <label>How much gasoline do you use in a month?</label>
+                    <div class="text-center">{{ input_form.heating_amt }}{{ input_form.heating_unit }}
+                        <a href="#" data-toggle="tooltip" data-placement="top" title="This will help us estimate your carbon emissions."><img src="{% static "calc/question.png" %}" width="15" height="15"></a>
+                    </div>
+                </div> 
+            </div>
+        </div>
+        <br class="hidden-md hidden-lg">
+        <div class="col-sm-12 col-md-4 col-lg-4">
+            <div id="electricity_panel">
+<!--                  <div class="form_title no_print">Electricity Usage</div> -->
+               <h1>Electricity Usage</h1>
+               </br>
+               <div>
+                    <label>What is the source of electricity in your household?</label>
+                    <div class="text-center">{{ input_form.elec_type }}
+                        <a href="#" data-toggle="tooltip" data-placement="top" title="This will help us estimate your carbon emissions."><img src="{% static "calc/question.png" %}" width="15" height="15"></a>
+                    </div>
+                </div> 
+                </br>
+                <div>
+                    <label>How much electricity do you use?</label>
+                    <div class="text-center">{{ input_form.elec_amt }}{{ input_form.elec_unit }}
+                        <a href="#" data-toggle="tooltip" data-placement="top" title="This will help us estimate your carbon emissions."><img src="{% static "calc/question.png" %}" width="15" height="15"></a>
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </div>
+    <div class = "container text-center">
+        <input class="submit btn btn-default btn-lg" type="submit" value="Next"/>
+    </div>
+    <div class="container"></div>
+</form>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script>
+    $("#gasoline_unit").change(function () {
+      var url = $("#personForm").attr("load-gasoline-units-url");  // get the url of the `load_gasoline_units` view
+      var countryId = $(this).val();  // get the selected country ID from the HTML input
+
+      $.ajax({                       // initialize an AJAX request
+        url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+        data: {
+          'country': countryId       // add the country id to the GET parameters
+        },
+        success: function (data) {   // `data` is the return of the `load_cities` view function
+          $("#id_city").html(data);  // replace the contents of the city input with the data that came from the server
+        }
+      });
+
+    });
+  </script>
+
+
+{% endblock %}
+</div>
+
+<script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();   
+});
+</script>
+
+</body>
+</html>
