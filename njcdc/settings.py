@@ -33,3 +33,4 @@ DATABASES['default'].update(db_from_env)
 django_heroku.settings(locals())
 
 SESSION_COOKIE_DOMAIN = "njcdc.herokuapp.com"
+SESSION_COOKIE_SECURE = False
